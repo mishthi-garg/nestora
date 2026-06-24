@@ -1,0 +1,7 @@
+@import "tailwindcss";
+.font-serif { font-family: 'Fraunces', serif; }
+
+
+.space-grotesk{
+  font-family: "Space Grotesk", sans-serif;
+}
