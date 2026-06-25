@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { getTodaysQuestions, toSeverity } from "../questionBank";
+import { getTodaysQuestions, toSeverity, aggregateAnswersByDimension } from "../questionBank";
 import leafIcon from "../icons/leaf.png"
 
 // Set this from the user's actual profile once Member 1's profile data is wired in.
@@ -40,7 +40,7 @@ function DailySurvey() {
         }
 
         if (isLastQuestion) {
-            setShowComplete(true);
+            finishSurvey(updatedAnswers);
         } else {
             setCurrentIndex((i) => i + 1);
         }
@@ -49,6 +49,19 @@ function DailySurvey() {
     function handleSlider(rawResponse) {
         const severity = toSeverity(currentQuestion, rawResponse);
         recordAnswer(severity);
+    }
+
+     // Per the roadmap: produce the same per-dimension score shape Chatbot.jsx
+    // accumulates, so both features can eventually write to one unified
+    // profile. For now this just logs it — wire this to a real
+    // POST /api/wellbeing/scores call once the backend/DB exists.
+    function finishSurvey(finalAnswers) {
+        const dimensionScores = aggregateAnswersByDimension(finalAnswers, todaysQuestions);
+        console.log("Today's dimension scores:", dimensionScores);
+        // TODO: persist dimensionScores to backend, keyed by date + user id,
+        // once DB integration is ready. Do NOT use localStorage per project
+        // convention — this stays in-memory/log-only until then.
+        setShowComplete(true);
     }
 
     // ───────────────────────────── Escalation screen ─────────────────────────────
@@ -98,7 +111,6 @@ function DailySurvey() {
         return (
             <div className="mt-12 p-4 sm:p-6 max-w-md mx-auto">
                 <div className="rounded-xl border-2 border-yellow-700 bg-[rgb(253,246,237)] p-6 flex flex-col gap-3 text-center">
-                    {/* <p className="text-3xl">🌿</p> */}
                     <div className="relative">
                         <img
                             src={leafIcon}
