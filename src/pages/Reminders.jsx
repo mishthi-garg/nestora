@@ -178,7 +178,7 @@ function Reminders() {
                 ${isToday ? "border-yellow-700 border-2" : "border-[rgb(255,214,166)]"}
                 hover:border-[rgb(233,131,80)]`}
             >
-              <span className={`text-sm sm:text-md ${isCurrentMonth ? "text-[rgb(40,20,9)]" : "text-gray-300"}`}>
+              <span className={`text-sm sm:text-md ${isCurrentMonth ? "text-[rgb(40,20,9)]" : "text-gray-400"}`}>
                 {date.getDate()}
               </span>
 

@@ -79,11 +79,11 @@ function Specialists() {
 
   return (
     <div className="p-4 sm:p-6 mx-auto">
-      <h2 className="text-2xl sm:text-3xl font-bold text-[rgb(40,20,9)] mb-1">
+      <h2 className="text-2xl sm:text-3xl font-bold text-[rgb(40,20,9)] mb-2">
         Specialists near you
       </h2>
-      <p className="italic text-sm text-gray-500 mb-5">
-        Gynaecologists, psychologists, and therapists close by
+      <p className="italic text-sm text-yellow-700 mb-5">
+        Gynaecologists, psychologists, and therapists near you
       </p>
 
       {/* Filter tabs */}
@@ -96,7 +96,7 @@ function Specialists() {
               ${
                 activeFilter === filter
                   ? "bg-yellow-700 border-yellow-700 text-white font-medium"
-                  : "border-[rgb(255,214,166)] text-[rgb(40,20,9)] hover:bg-yellow-50"
+                  : "bg-yellow-50 border-[rgb(255,214,166)] text-[rgb(40,20,9)] hover:bg-orange-100"
               }`}
           >
             {filter}
@@ -109,7 +109,7 @@ function Specialists() {
         {filteredSpecialists.map((s) => (
           <div
             key={s.id}
-            className="rounded-4xl border-1 border-[rgb(255,214,166)] bg-[rgb(253,246,237)] p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+            className="rounded-4xl border-1 border-yellow-300 bg-white p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
           >
             <div className="flex-1">
               <div className="flex items-center gap-2 flex-wrap">
@@ -135,7 +135,7 @@ function Specialists() {
             <div className="flex flex-row sm:flex-col gap-2 sm:w-44 shrink-0">
               <button
                 onClick={() => navigate(`/specialists/${s.id}`)}
-                className="cursor-pointer flex-1 sm:flex-none bg-[rgb(40,20,9)] text-white rounded-4xl px-3 py-2 text-sm font-medium hover:bg-yellow-700"
+                className="cursor-pointer flex-1 sm:flex-none bg-yellow-50 text-[rgb(40,20,9)] border border-[rgb(255,214,166)] rounded-4xl px-3 py-2 text-sm font-medium hover:border-[rgb(233,131,80)] hover:bg-[rgb(251,234,203)]"
               >
                 View details
               </button>

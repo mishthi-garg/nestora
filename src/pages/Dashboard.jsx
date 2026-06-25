@@ -46,7 +46,7 @@ function Dashboard() {
                     <div
                         onClick={() => navigate('/specialists')}
                         className="flex px-8 justify-between gap-6 items-center cursor-pointer shadow-md rounded-4xl border-2 py-8 border-[rgb(255,214,166)] bg-yellow-50 hover:border-[rgb(233,131,80)] hover:bg-[rgb(251,234,203)]">
-                        <p>Specialists</p>
+                        <p>Find Your Support</p>
                         <img
                             src={docIcon}
                             alt="Doctor"
@@ -67,7 +67,7 @@ function Dashboard() {
                     <div
                         onClick={() => navigate('/dailysurvey')}
                         className="flex px-8 justify-between gap-6 items-center cursor-pointer shadow-md rounded-4xl border-2 py-8 border-[rgb(255,214,166)] bg-yellow-50 hover:border-[rgb(233,131,80)] hover:bg-[rgb(251,234,203)]">
-                        <p>Daily Survey</p>
+                        <p>Daily Check-In</p>
                         <img
                             src={surveyIcon}
                             alt="Survey"
@@ -87,7 +87,7 @@ function Dashboard() {
                     <div
                         onClick={() => navigate('/articles')}
                         className="flex px-8 justify-between gap-6 items-center cursor-pointer shadow-md rounded-4xl border-2 py-8 border-[rgb(255,214,166)] bg-yellow-50 hover:border-[rgb(233,131,80)] hover:bg-[rgb(251,234,203)]">
-                        <p>Articles For You</p>
+                        <p>Guidance that Cares</p>
                         <img
                             src={articleIcon}
                             alt="Article"
@@ -97,7 +97,7 @@ function Dashboard() {
                     <div
                         onClick={() => navigate('/chatbot')}
                         className="flex px-8 justify-between gap-6 items-center cursor-pointer shadow-md rounded-4xl border-2 py-8 border-[rgb(255,214,166)] bg-yellow-50 hover:border-[rgb(233,131,80)] hover:bg-[rgb(251,234,203)]">
-                        <p>Wellness Companion</p>
+                        <p>Your Companion</p>
                         <img
                             src={botIcon}
                             alt="Chatbot"
