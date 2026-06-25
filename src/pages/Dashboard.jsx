@@ -13,7 +13,7 @@ function Dashboard() {
             <div className="flex flex-col md:flex-row gap-4">
                 <div className="flex md:w-2/3 w-full flex-col gap-6 justify-end">
                     <h2 className="text-4xl text-[rgb(40,20,9)] font-bold">Hello!</h2>
-                    <div className="px-6 rounded-4xl border-2 py-6 border-[rgb(220,0,0)] bg-red-100 flex flex-col sm:flex-row gap-4 items-center justify-between">
+                    <div className="px-6 rounded-4xl border-2 py-6 border-[rgb(220,0,0)] bg-red-100 flex flex-col sm:flex-row gap-4 items-start justify-between">
                         <div>
                             <p className="font-semibold text-[rgb(40,20,9)]">Hey! Kindly complete your daily survey.</p>
                             <p className="text-sm text-gray-500 mt-1">Just a couple of quick questions, takes under a minute.</p>
