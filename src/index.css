@@ -1,7 +1,9 @@
 @import "tailwindcss";
+
 .font-serif { font-family: 'Fraunces', serif; }
 
-
-.space-grotesk{
-  font-family: "Space Grotesk", sans-serif;
+.sniglet-regular {
+  font-family: "Sniglet", system-ui;
+  font-weight: 400;
+  font-style: normal;
 }

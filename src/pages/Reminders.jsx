@@ -5,23 +5,23 @@ import { useState, useMemo } from "react";
 const TYPE_STYLES = {
   medicine: {
     label: "Medicine",
-    dot: "bg-[rgb(193,102,107)]",
-    bg: "bg-[rgb(255,241,238)]",
-    border: "border-[rgb(193,102,107)]",
-    text: "text-[rgb(140,60,65)]",
+    dot: "bg-[rgb(102,193,141)]",
+    bg: "bg-green-100",
+    border: "border-[rgb(49,152,104)]",
+    text: "text-[rgb(60,140,65)]",
   },
   appointment: {
     label: "Appointment",
-    dot: "bg-yellow-700",
-    bg: "bg-[rgb(253,246,237)]",
+    dot: "bg-red-700",
+    bg: "bg-red-100",
     border: "border-yellow-700",
-    text: "text-[rgb(40,20,9)]",
+    text: "text-[rgb(134,54,34)]",
   },
   other: {
     label: "Other",
     dot: "bg-[rgb(233,131,80)]",
-    bg: "bg-[rgb(251,234,203)]",
-    border: "border-[rgb(255,214,166)]",
+    bg: "bg-orange-100",
+    border: "border-[rgb(219,117,0)]",
     text: "text-[rgb(150,80,30)]",
   },
 };
@@ -165,18 +165,35 @@ function Reminders() {
 
           // Determine dominant background tint
           let cellBg = "bg-yellow-50";
-          if (dayReminders.some((r) => r.type === "appointment")) cellBg = TYPE_STYLES.appointment.bg;
-          else if (dayReminders.some((r) => r.type === "medicine")) cellBg = TYPE_STYLES.medicine.bg;
-          else if (dayReminders.some((r) => r.type === "other")) cellBg = TYPE_STYLES.other.bg;
+          let cellBorder = "border-[rgb(255,214,166)]";
 
+          if (dayReminders.some((r) => r.type === "appointment")) {
+            cellBg = TYPE_STYLES.appointment.bg;
+            cellBorder = TYPE_STYLES.appointment.border;
+          }
+          else if (dayReminders.some((r) => r.type === "medicine")) {
+            cellBg = TYPE_STYLES.medicine.bg;
+            cellBorder = TYPE_STYLES.medicine.border;
+          }
+          else if (dayReminders.some((r) => r.type === "other")) {
+            cellBg = TYPE_STYLES.other.bg;
+            cellBorder = TYPE_STYLES.other.border;
+          } console.log(cellBg);
           return (
             <button
               key={i}
               onClick={() => openDay(date)}
-              className={`relative aspect-square sm:aspect-[4/3] rounded-lg sm:rounded-xl border text-center p-1.5 sm:p-2 cursor-pointer transition
+              className={`
+                relative aspect-square sm:aspect-[4/3]
+                rounded-lg sm:rounded-xl
+                border text-center p-1.5 sm:p-2
+                cursor-pointer transition
+
                 ${isCurrentMonth ? cellBg : "bg-gray-50"}
-                ${isToday ? "border-yellow-700 border-2" : "border-[rgb(255,214,166)]"}
-                hover:border-[rgb(233,131,80)]`}
+                ${isToday ? "border-yellow-700 border-2" : cellBorder}
+
+                hover:border-[rgb(233,131,80)]
+              `}
             >
               <span className={`text-sm sm:text-md ${isCurrentMonth ? "text-[rgb(40,20,9)]" : "text-gray-400"}`}>
                 {date.getDate()}
@@ -233,9 +250,8 @@ function Reminders() {
                   <button
                     key={key}
                     onClick={() => setDraftType(key)}
-                    className={`cursor-pointer flex-1 text-sm py-1.5 rounded-lg border ${
-                      draftType === key ? `${style.bg} ${style.border} ${style.text} font-medium` : "border-gray-200 text-gray-400"
-                    }`}
+                    className={`cursor-pointer flex-1 text-sm py-1.5 rounded-lg border ${draftType === key ? `${style.bg} ${style.border} ${style.text} font-medium` : "border-gray-200 text-gray-400"
+                      }`}
                   >
                     {style.label}
                   </button>

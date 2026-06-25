@@ -12,7 +12,7 @@ function App() {
   return (
 
     <BrowserRouter>
-      <div className="min-h-screen bg-[rgb(255,242,198)] space-grotesk">
+      <div className="min-h-screen bg-[rgb(255,242,198)] sniglet-regular">
         <div className="bg-[rgb(255,252,235)] p-4 shadow-sm border-b-2 border-[rgb(255,214,166)] flex items-center justify-between">
             <NavLink to="/" className="font-['Fraunces'] font-bold italic text-2xl text-yellow-700">Nestora </NavLink>
         </div>

@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { getTodaysQuestions, toSeverity } from "../questionBank";
+import leafIcon from "../icons/leaf.png"
 
 // Set this from the user's actual profile once Member 1's profile data is wired in.
 // "pregnancy" or "postpartum" changes which questions are eligible.
@@ -54,7 +55,7 @@ function DailySurvey() {
     if (showEscalation) {
         return (
             <div className="p-4 sm:p-6 max-w-md mx-auto">
-                <div className="rounded-xl border-2 border-[rgb(193,102,107)] bg-[rgb(255,241,238)] p-6 flex flex-col gap-4">
+                <div className="rounded-xl border-2 border-[rgb(255,214,166)] bg-[rgb(255,241,238)] p-6 flex flex-col gap-4">
                     <p className="font-semibold text-[rgb(140,60,65)] text-lg">
                         Thank you for telling me that.
                     </p>
@@ -63,7 +64,7 @@ function DailySurvey() {
                         connect you with someone who can help right now.
                     </p>
 
-                    <div className="rounded-lg bg-white border border-[rgb(193,102,107)] p-4">
+                    <div className="rounded-lg bg-white shadow-xs p-4">
                         <p className="text-sm font-medium text-[rgb(40,20,9)] mb-1">
                             You can talk to someone right now:
                         </p>
@@ -95,19 +96,28 @@ function DailySurvey() {
     // ───────────────────────────── Completion screen ─────────────────────────────
     if (showComplete) {
         return (
-            <div className="p-4 sm:p-6 max-w-md mx-auto">
+            <div className="mt-12 p-4 sm:p-6 max-w-md mx-auto">
                 <div className="rounded-xl border-2 border-yellow-700 bg-[rgb(253,246,237)] p-6 flex flex-col gap-3 text-center">
-                    <p className="text-3xl">🌿</p>
-                    <p className="font-semibold text-[rgb(40,20,9)] text-lg">Thanks for checking in.</p>
-                    <p className="text-sm text-gray-500">
-                        Sounds like today had its moments — that's okay. I'll see you again tomorrow.
-                    </p>
-                    <button
-                        onClick={() => navigate("/")}
-                        className="cursor-pointer mt-2 bg-[rgb(40,20,9)] text-white rounded-lg py-2.5 text-sm font-medium hover:bg-[rgb(60,35,20)]"
-                    >
-                        Back to dashboard
-                    </button>
+                    {/* <p className="text-3xl">🌿</p> */}
+                    <div className="relative">
+                        <img
+                            src={leafIcon}
+                            alt="leaf"
+                            className="absolute -bottom-4 w-20 h-auto rounded-xl "
+                        />
+                    </div>
+                    <div>
+                        <p className="font-semibold text-[rgb(40,20,9)] text-lg">Thanks for checking in.</p>
+                        <p className="text-sm text-gray-500">
+                            Sounds like today had its moments — that's okay. I'll see you again tomorrow.
+                        </p>
+                        <button
+                            onClick={() => navigate("/")}
+                            className="cursor-pointer w-full mt-2 bg-[rgb(40,20,9)] text-white rounded-lg py-2.5 text-sm font-medium hover:bg-[rgb(60,35,20)]"
+                        >
+                            Back to dashboard
+                        </button>
+                    </div>
                 </div>
             </div>
         );
@@ -143,7 +153,7 @@ function DailySurvey() {
                             <button
                                 key={option.value}
                                 onClick={() => handleSlider(option.value)}
-                                className="cursor-pointer rounded-lg border border-[rgb(255,214,166)] py-3 px-2 text-lg text-[rgb(40,20,9)] hover:border-yellow-700 hover:bg-yellow-50"
+                                className="cursor-pointer bg-gray-50 rounded-xl border border-[rgb(255,214,166)] py-3 px-2 text-lg text-[rgb(40,20,9)] hover:border-yellow-700 hover:bg-yellow-50"
                             >
                                 {option.label}
                             </button>
