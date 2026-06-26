@@ -54,7 +54,7 @@ const FloatingDockMobile = ({
                 }}
                 transition={{ delay: (items.length - 1 - idx) * 0.05 }}>
                 <Link
-                  href={item.href}
+                  to={item.href}
                   key={item.title}
                   className="border border-yellow-700 flex h-10 w-10 items-center justify-center rounded-full bg-yellow-50">
                   <div className="h-4 w-4">{item.icon}</div>
