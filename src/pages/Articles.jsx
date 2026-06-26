@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ARTICLES, CATEGORY_LABELS } from "../articleData";
-
+import BottomDock from "../components/BottomDock";
 // Set from real profile data once available — filters which stage-specific
 // articles show by default (user can still browse "both" + opposite stage
 // manually via the stage toggle below).
@@ -122,6 +122,7 @@ function Articles() {
           </p>
         )}
       </div>
+      <BottomDock />
     </div>
   );
 }

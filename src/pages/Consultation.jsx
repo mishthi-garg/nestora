@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import heartImg from "../icons/heart.png"
 import camImg from "../icons/camera.png"
 import micImg from "../icons/mic.png"
+import BottomDock from "../components/BottomDock";
 // Mock available slots — swap for a real availability API tied to the
 // specialist's id later. Kept simple/flat on purpose.
 const MOCK_SLOTS = [
@@ -230,6 +231,7 @@ function Consultation() {
             >
                 Confirm booking
             </button>
+            <BottomDock />
         </div>
     );
 }

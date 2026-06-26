@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-
+import BottomDock from "../components/BottomDock";
 // Color mapping per reminder type — used for the dot/badge on each date
 // Matches the app's warm cream/peach/brown palette used on Dashboard.
 const TYPE_STYLES = {
@@ -291,6 +291,7 @@ function Reminders() {
           </div>
         </div>
       )}
+      <BottomDock />
     </div>
   );
 }

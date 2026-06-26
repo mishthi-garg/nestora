@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import BottomDock from "../components/BottomDock";
 // Mock data — swap this for a real API call (location-based search) later.
 // Structure kept flat and simple so the fetch replacement only touches this array.
 const SPECIALISTS = [
@@ -155,6 +155,7 @@ function Specialists() {
           <p className="text-center text-gray-400 py-10">No specialists found for this filter.</p>
         )}
       </div>
+      <BottomDock />
     </div>
   );
 }

@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { getTodaysQuestions, toSeverity, aggregateAnswersByDimension } from "../questionBank";
 import leafIcon from "../icons/leaf.png"
-
+import BottomDock from "../components/BottomDock";
 // Set this from the user's actual profile once Member 1's profile data is wired in.
 // "pregnancy" or "postpartum" changes which questions are eligible.
 const CURRENT_STAGE = "postpartum";
@@ -177,6 +177,7 @@ function DailySurvey() {
             <p className="text-xs text-gray-400 text-center mt-4">
                 Question {currentIndex + 1} of {todaysQuestions.length}
             </p>
+            <BottomDock />
         </div>
     );
 }

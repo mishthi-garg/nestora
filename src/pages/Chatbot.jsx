@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import BottomDock from "../components/BottomDock";
 // Dimensions tracked in the background — per the roadmap, these mirror the
 // EPDS-style axes the daily survey scores against (see questionBank.js),
 // using the exact same dimension keys so both features feed one unified
@@ -272,7 +272,7 @@ function Chatbot() {
         <div ref={scrollRef} />
       </div>
 
-      <div className="flex gap-2">
+      <div className="mb-12 flex gap-2">
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -290,6 +290,7 @@ function Chatbot() {
           Send
         </button>
       </div>
+      <BottomDock />
     </div>
   );
 }
