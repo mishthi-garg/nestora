@@ -94,7 +94,8 @@ function Chatbot() {
   //   acute: boolean   // backend's own judgment call, in addition to the threshold check below
   // }
   async function sendToBackend(conversationHistory) {
-    const res = await fetch("/api/chatbot/message", {
+    const baseUrl = import.meta.env.VITE_API_BASE_URL || "";
+    const res = await fetch(`${baseUrl}/api/chatbot/message`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ messages: conversationHistory }),
