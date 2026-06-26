@@ -200,18 +200,19 @@ function Chatbot() {
       )}
 
       {escalation && (
-        <div className="rounded-xl border-2 border-[rgb(193,102,107)] bg-[rgb(255,241,238)] p-4 mb-4">
+        <div className="flex justify-center fixed inset-0 z-60 bg-black/50 items-center">
+          <div className="max-w-xl rounded-xl border-2 border-[rgb(193,102,107)] bg-[rgb(255,241,238)] px-6 py-12 mb-4">
           <p className="font-semibold text-[rgb(140,60,65)] mb-2">
             {ESCALATION_CONFIG[escalation.type].heading}
           </p>
           <p className="text-sm text-[rgb(140,60,65)] mb-3">
             {ESCALATION_CONFIG[escalation.type].subtext}
           </p>
-          <div className="flex flex-col gap-2 mb-3">
+          <div className="flex flex-col gap-4 mb-3">
             {ESCALATION_CONFIG[escalation.type].resources.map((r) => (
               <div
                 key={r.label}
-                className="flex items-center justify-between bg-white rounded-lg border border-[rgb(193,102,107)] px-3 py-2"
+                className="flex items-center justify-between bg-white rounded-lg border border-[rgb(193,102,107)] px-4 py-3"
               >
                 <span className="text-sm text-[rgb(40,20,9)]">{r.label}</span>
                 {r.value && (
@@ -225,7 +226,7 @@ function Chatbot() {
               </div>
             ))}
           </div>
-          <div className="flex gap-2">
+          <div className="mt-8 flex gap-4">
             <button
               onClick={() =>
                 navigate(
@@ -244,6 +245,7 @@ function Chatbot() {
               {ESCALATION_CONFIG[escalation.type].dismissLabel}
             </button>
           </div>
+        </div>
         </div>
       )}
 

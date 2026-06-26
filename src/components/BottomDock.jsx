@@ -43,7 +43,7 @@ export default function BottomDock() {
   ];
 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
+    <div className="fixed bottom-6 left-12 md:left-1/2 -translate-x-1/2 z-50">
       <FloatingDock items={links} />
     </div>
   );
