@@ -10,6 +10,7 @@ import { IconLayoutNavbarCollapse } from "@tabler/icons-react";
 import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from "motion/react";
 
 import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 export const FloatingDock = ({
   items,
@@ -52,12 +53,12 @@ const FloatingDockMobile = ({
                   },
                 }}
                 transition={{ delay: (items.length - 1 - idx) * 0.05 }}>
-                <a
+                <Link
                   href={item.href}
                   key={item.title}
                   className="border border-yellow-700 flex h-10 w-10 items-center justify-center rounded-full bg-yellow-50">
                   <div className="h-4 w-4">{item.icon}</div>
-                </a>
+                </Link>
               </motion.div>
             ))}
           </motion.div>
