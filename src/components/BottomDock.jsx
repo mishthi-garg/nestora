@@ -6,6 +6,7 @@ import {
   IconStethoscope,
   IconClipboardHeart,
   IconArticle,
+  IconApple,
 } from "@tabler/icons-react";
 
 export default function BottomDock() {
@@ -39,6 +40,11 @@ export default function BottomDock() {
       title: "Companion",
       href: "/chatbot",
       icon: <IconMessageCircle className="h-full w-full" />,
+    },
+    {
+      title: "Food Guide",
+      href: "/foodinfo",
+      icon: <IconApple className="h-full w-full" />,
     },
   ];
 
