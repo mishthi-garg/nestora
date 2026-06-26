@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard'
 import Reminders from './pages/Reminders'
 import Specialists from './pages/Specialists'
 import Profile from './pages/Profile'
+import FoodInfo from './pages/FoodInfo'
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="/articles" element={<Articles />} />
           <Route path="/chatbot" element={<Chatbot />} />
           <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="/foodinfo" element={<FoodInfo />} />
         </Routes>
       </div>
 

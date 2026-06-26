@@ -5,6 +5,7 @@ import surveyIcon from "../icons/survey-icon.png"
 import consultIcon from "../icons/consult-icon.png"
 import articleIcon from "../icons/article.png"
 import botIcon from "../icons/bot-icon.png"
+import food from "../icons/food.png"
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -108,6 +109,16 @@ function Dashboard() {
                         <img
                             src={botIcon}
                             alt="Chatbot"
+                            className="w-20 h-auto rounded-xl "
+                        />
+                    </div>
+                    <div
+                        onClick={() => navigate('/foodinfo')}
+                        className="transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl flex px-8 justify-between gap-6 items-center cursor-pointer shadow-md rounded-4xl border-2 py-8 border-[rgb(255,214,166)] bg-yellow-50 hover:border-[rgb(233,131,80)] hover:bg-[rgb(251,234,203)]">
+                        <p>Safe Food Guide</p>
+                        <img
+                            src={food}
+                            alt="Doctor"
                             className="w-20 h-auto rounded-xl "
                         />
                     </div>
