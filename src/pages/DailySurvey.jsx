@@ -7,6 +7,25 @@ import BottomDock from "../components/BottomDock";
 // "pregnancy" or "postpartum" changes which questions are eligible.
 const CURRENT_STAGE = "postpartum";
 
+const completionMessages = {
+  1: {
+    title: "Wonderful! Looks like you're doing well today.",
+    text: "I'm glad today has been a good one. Keep taking care of yourself, and I'll check in again tomorrow.",
+  },
+  2: {
+    title: "Thanks for checking in.",
+    text: "Looks like today had a few bumps. Take it easy, and I'll be here tomorrow.",
+  },
+  3: {
+    title: "Thanks for checking in.",
+    text: "Today sounds like it was a bit difficult. Remember to rest and reach out if you need support.",
+  },
+  4: {
+    title: "Thank you for sharing.",
+    text: "It sounds like today was especially challenging. Be kind to yourself, and consider reaching out to someone you trust if you need extra support.",
+  },
+};
+
 function DailySurvey() {
     const navigate = useNavigate();
 
@@ -25,6 +44,7 @@ function DailySurvey() {
 
     const currentQuestion = todaysQuestions[currentIndex];
     const isLastQuestion = currentIndex === todaysQuestions.length - 1;
+    const [overallSeverity, setOverallSeverity] = useState(0);
 
     function recordAnswer(severityValue) {
         const updatedAnswers = { ...answers, [currentQuestion.id]: severityValue };
@@ -58,6 +78,11 @@ function DailySurvey() {
     function finishSurvey(finalAnswers) {
         const dimensionScores = aggregateAnswersByDimension(finalAnswers, todaysQuestions);
         console.log("Today's dimension scores:", dimensionScores);
+        const values = Object.values(finalAnswers);
+        const avgSeverity =
+        values.reduce((sum, value) => sum + value, 0) / values.length;
+
+        setOverallSeverity(avgSeverity);
         // TODO: persist dimensionScores to backend, keyed by date + user id,
         // once DB integration is ready. Do NOT use localStorage per project
         // convention — this stays in-memory/log-only until then.
@@ -108,6 +133,15 @@ function DailySurvey() {
 
     // ───────────────────────────── Completion screen ─────────────────────────────
     if (showComplete) {
+        console.log(overallSeverity);
+        const message =
+        overallSeverity <= 2.5
+            ? completionMessages[1]
+            : overallSeverity <= 3.5
+            ? completionMessages[2]
+            : overallSeverity <= 4.5
+            ? completionMessages[3]
+            : completionMessages[4];
         return (
             <div className="mt-12 p-4 sm:p-6 max-w-md mx-auto">
                 <div className="rounded-xl border-2 border-yellow-700 bg-[rgb(253,246,237)] p-6 flex flex-col gap-3 text-center">
@@ -119,9 +153,9 @@ function DailySurvey() {
                         />
                     </div>
                     <div>
-                        <p className="font-semibold text-[rgb(40,20,9)] text-lg">Thanks for checking in.</p>
+                        <p className="font-semibold text-[rgb(40,20,9)] text-lg">{message.title}</p>
                         <p className="text-sm text-gray-500">
-                            Sounds like today had its moments — that's okay. I'll see you again tomorrow.
+                            {message.text}
                         </p>
                         <button
                             onClick={() => navigate("/")}
