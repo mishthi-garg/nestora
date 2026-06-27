@@ -142,7 +142,7 @@ function Specialists() {
               {s.offersOnline && (
                 <button
                   onClick={() => navigate("/consultation", { state: { specialistId: s.id, specialistName: s.name } })}
-                  className="cursor-pointer flex-1 sm:flex-none bg-yellow-50 text-[rgb(40,20,9)] border border-[rgb(255,214,166)] rounded-2xl px-3 py-2 text-sm font-medium hover:border-[rgb(233,131,80)] hover:bg-[rgb(251,234,203)]"
+                  className="cursor-pointer flex-1 sm:flex-none bg-yellow-50 text-[rgb(40,20,9)] border border-[rgb(255,214,166)] rounded-4xl px-3 py-2 text-sm font-medium hover:border-[rgb(233,131,80)] hover:bg-[rgb(251,234,203)]"
                 >
                   Book online consultation
                 </button>

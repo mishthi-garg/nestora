@@ -165,6 +165,7 @@ function DailySurvey() {
                         </button>
                     </div>
                 </div>
+                <BottomDock />
             </div>
         );
     }
