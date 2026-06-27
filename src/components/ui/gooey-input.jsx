@@ -59,8 +59,8 @@ export function GooeyInput({
   placeholder = "Type to search...",
   className,
   classNames,
-  collapsedWidth = 280,
-  expandedWidth = 500,
+  collapsedWidth = 120,
+  expandedWidth = 300,
   expandedOffset = 50,
   gooeyBlur = 5,
   value: valueProp,
@@ -129,8 +129,11 @@ export function GooeyInput({
       className={cn("relative flex items-center justify-center", className, classNames?.root)}>
       <GooeyFilter filterId={filterId} blur={gooeyBlur} />
       <div
-        className={cn("relative flex h-10 items-center justify-center", classNames?.filterWrap)}
-        style={{ filter: `url(#${filterId})` }}>
+  className={cn(
+    "relative flex h-10 items-center justify-center md:[filter:url(#${filterId})]",
+    classNames?.filterWrap
+  )}
+>
         <motion.div
           className={cn("flex h-10 items-center justify-center", classNames?.buttonRow)}
           variants={buttonVariants}
@@ -163,8 +166,8 @@ export function GooeyInput({
               className={cn(
                 "h-full min-w-0 flex-1 bg-transparent text-sm text-background outline-none",
                 isExpanded
-                  ? "placeholder:text-background/50 dark:placeholder:text-background/45"
-                  : "pointer-events-none placeholder:text-background/80 dark:placeholder:text-background/70",
+                  ? "placeholder:text-background/50"
+                  : "pointer-events-none placeholder:text-background/80",
                 classNames?.input
               )} />
           </button>
