@@ -30,7 +30,7 @@ function Dashboard() {
                     </div>
 
                 </div>
-                <div className="px-4 w-full md:w-1/3 max-h-70 overflow-y-auto rounded-xl border-2 py-6 border-[rgb(255,214,166)] bg-[rgb(253,246,237)] flex flex-col gap-4">
+                <div className="px-4 w-full md:w-1/3 max-h-70 overflow-y-auto rounded-xl  py-6 border-[rgb(255,214,166)] bg-[rgb(253,246,237)] bg-yellow-50 flex flex-col gap-4">
                     <div>
                         <p className="text-sm text-gray-500">Next medicine</p>
                         <p className="font-semibold text-[rgb(40,20,9)]">Iron + Folic acid</p>
@@ -53,7 +53,7 @@ function Dashboard() {
 
                     <div
                         onClick={() => navigate('/specialists')}
-                        className="transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl flex px-8 justify-between gap-6 items-center cursor-pointer shadow-md rounded-4xl border-2 py-8 border-[rgb(255,214,166)] bg-yellow-50 hover:border-[rgb(233,131,80)] hover:bg-[rgb(251,234,203)]">
+                        className="transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl flex px-8 justify-between gap-6 items-center cursor-pointer shadow-md rounded-4xl border-1 py-8 border-[rgb(255,214,166)] bg-yellow-50 hover:border-[rgb(233,131,80)] hover:bg-[rgb(251,234,203)]">
                         <p>Find Your Support</p>
                         <img
                             src={docIcon}
@@ -64,7 +64,7 @@ function Dashboard() {
 
                     <div
                         onClick={() => navigate('/reminders')}
-                        className="transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl flex px-8 justify-between gap-6 items-center cursor-pointer shadow-md rounded-4xl border-2 py-8 border-[rgb(255,214,166)] bg-yellow-50 hover:border-[rgb(233,131,80)] hover:bg-[rgb(251,234,203)]">
+                        className="transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl flex px-8 justify-between gap-6 items-center cursor-pointer shadow-md rounded-4xl border-1 py-8 border-[rgb(255,214,166)] bg-yellow-50 hover:border-[rgb(233,131,80)] hover:bg-[rgb(251,234,203)]">
                         <p>Reminders</p>
                         <img
                             src={reminderIcon}
@@ -74,7 +74,7 @@ function Dashboard() {
                     </div>
                     <div
                         onClick={() => navigate('/dailysurvey')}
-                        className="transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl flex px-8 justify-between gap-6 items-center cursor-pointer shadow-md rounded-4xl border-2 py-8 border-[rgb(255,214,166)] bg-yellow-50 hover:border-[rgb(233,131,80)] hover:bg-[rgb(251,234,203)]">
+                        className="transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl flex px-8 justify-between gap-6 items-center cursor-pointer shadow-md rounded-4xl border-1 py-8 border-[rgb(255,214,166)] bg-yellow-50 hover:border-[rgb(233,131,80)] hover:bg-[rgb(251,234,203)]">
                         <p>Daily Check-In</p>
                         <img
                             src={surveyIcon}
@@ -84,7 +84,7 @@ function Dashboard() {
                     </div>
                     <div
                         onClick={() => navigate('/consultation')}
-                        className="transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl flex px-8 justify-between gap-6 items-center cursor-pointer shadow-md rounded-4xl border-2 py-8 border-[rgb(255,214,166)] bg-yellow-50 hover:border-[rgb(233,131,80)] hover:bg-[rgb(251,234,203)]">
+                        className="transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl flex px-8 justify-between gap-6 items-center cursor-pointer shadow-md rounded-4xl border-1 py-8 border-[rgb(255,214,166)] bg-yellow-50 hover:border-[rgb(233,131,80)] hover:bg-[rgb(251,234,203)]">
                         <p>Online Consultation</p>
                         <img
                             src={consultIcon}
@@ -94,7 +94,7 @@ function Dashboard() {
                     </div>
                     <div
                         onClick={() => navigate('/articles')}
-                        className="transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl flex px-8 justify-between gap-6 items-center cursor-pointer shadow-md rounded-4xl border-2 py-8 border-[rgb(255,214,166)] bg-yellow-50 hover:border-[rgb(233,131,80)] hover:bg-[rgb(251,234,203)]">
+                        className="transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl flex px-8 justify-between gap-6 items-center cursor-pointer shadow-md rounded-4xl border-1 py-8 border-[rgb(255,214,166)] bg-yellow-50 hover:border-[rgb(233,131,80)] hover:bg-[rgb(251,234,203)]">
                         <p>Guidance that Cares</p>
                         <img
                             src={articleIcon}
@@ -104,7 +104,7 @@ function Dashboard() {
                     </div>
                     <div
                         onClick={() => navigate('/chatbot')}
-                        className="transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl flex px-8 justify-between gap-6 items-center cursor-pointer shadow-md rounded-4xl border-2 py-8 border-[rgb(255,214,166)] bg-yellow-50 hover:border-[rgb(233,131,80)] hover:bg-[rgb(251,234,203)]">
+                        className="transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl flex px-8 justify-between gap-6 items-center cursor-pointer shadow-md rounded-4xl border-1 py-8 border-[rgb(255,214,166)] bg-yellow-50 hover:border-[rgb(233,131,80)] hover:bg-[rgb(251,234,203)]">
                         <p>Your Companion</p>
                         <img
                             src={botIcon}
@@ -114,12 +114,12 @@ function Dashboard() {
                     </div>
                     <div
                         onClick={() => navigate('/foodinfo')}
-                        className="transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl flex px-8 justify-between gap-6 items-center cursor-pointer shadow-md rounded-4xl border-2 py-8 border-[rgb(255,214,166)] bg-yellow-50 hover:border-[rgb(233,131,80)] hover:bg-[rgb(251,234,203)]">
+                        className="transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl flex px-8 justify-between gap-6 items-center cursor-pointer shadow-md rounded-4xl border-1 py-8 border-[rgb(255,214,166)] bg-yellow-50 hover:border-[rgb(233,131,80)] hover:bg-[rgb(251,234,203)]">
                         <p>Safe Food Guide</p>
                         <img
                             src={food}
                             alt="Doctor"
-                            className="w-20 h-auto rounded-xl "
+                            className="w-20 h-auto rounded-xl bg-white p-2"
                         />
                     </div>
                 </div>

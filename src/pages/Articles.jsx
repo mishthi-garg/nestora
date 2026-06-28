@@ -96,7 +96,7 @@ function Articles() {
             href={article.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-xl border-2 border-[rgb(255,214,166)] bg-[rgb(253,246,237)] py-4 px-6 flex items-center justify-between gap-4 hover:border-yellow-700 transition"
+            className="rounded-4xl border-1 border-[rgb(255,214,166)] border-yellow-300 bg-[rgb(253,246,237)] bg-white py-4 px-6 flex items-center justify-between gap-4 hover:border-[rgb(233,131,80)] hover:bg-orange-50 transition duration-300"
           >
             <div>
               <p className="font-medium text-[rgb(40,20,9)] text-sm sm:text-base">
