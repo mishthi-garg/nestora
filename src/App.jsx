@@ -13,14 +13,16 @@ import Reminders from "./pages/Reminders";
 import Specialists from "./pages/Specialists";
 import Profile from "./pages/Profile";
 import FoodInfo from "./pages/FoodInfo";
+import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
-  const [session, setSession] = useState(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session ?? false);
+      setUser(session?.user ?? null);
       setLoading(false);
     });
 
@@ -41,49 +43,61 @@ function App() {
     );
   }
 
-  if (!session) {
-    return (
-      <Auth
-        supabase={supabase}
-        onAuthenticated={(newSession) => setSession(newSession)}
-      />
-    );
-  }
 
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-[rgb(255,242,198)] sniglet-regular">
-        <div className="bg-[rgb(255,252,235)] p-4 shadow-sm border-b-2 border-[rgb(255,214,166)] flex items-center justify-between">
-          <NavLink
-            to="/"
-            className="font-['Fraunces'] font-bold italic text-2xl text-yellow-700"
-          >
-            Nestora
-          </NavLink>
+        {user && (
+          <div className="bg-[rgb(255,252,235)] p-4 shadow-sm border-b-2 border-[rgb(255,214,166)] flex items-center justify-between">
+            <NavLink
+              to="/"
+              className="font-['Fraunces'] font-bold italic text-2xl text-yellow-700"
+            >
+              Nestora
+            </NavLink>
+            <div className="flex items-center gap-4">
+              {/* Profile hover card */}
+              <div
+                className="relative"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              ><NavLink to="/profile">Profile</NavLink>
+                {isHovered && (
+                  <div className="absolute flex flex-col gap-2 right-0 top-8 bg-[rgb(238,238,238)] border border-[rgb(75,64,56)] rounded-xl shadow-lg py-2 px-6 min-w-max z-10">
+                    <p className="font-bold">{user.email}</p>
+                    <button
+                      onClick={() => supabase.auth.signOut()}
+                      className="px-3 py-1 rounded bg-yellow-600 text-white"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
 
-          <NavLink to="/profile">Profile</NavLink>
 
-          {/* Optional Sign Out */}
-          <button
-            onClick={() => supabase.auth.signOut()}
-            className="px-3 py-1 rounded bg-yellow-600 text-white"
-          >
-            Sign Out
-          </button>
+          </div>
+        )}
+        <div className="p-6">
+          <Routes>
+            <Route
+              path="/auth"
+              element={user ? <Navigate to="/" replace /> : <Auth />}
+            />
+            <Route path="/" element={<ProtectedRoute user={user}><Dashboard /></ProtectedRoute>} />
+            <Route path="/profile" element={<ProtectedRoute user={user}><Profile /></ProtectedRoute>} />
+            <Route path="/specialists" element={<ProtectedRoute user={user}><Specialists /></ProtectedRoute>} />
+            <Route path="/reminders" element={<ProtectedRoute user={user}><Reminders /></ProtectedRoute>} />
+            <Route path="/dailysurvey" element={<ProtectedRoute user={user}><DailySurvey /></ProtectedRoute>} />
+            <Route path="/consultation" element={<ProtectedRoute user={user}><Consultation /></ProtectedRoute>} />
+            <Route path="/articles" element={<ProtectedRoute user={user}><Articles /></ProtectedRoute>} />
+            <Route path="/chatbot" element={<ProtectedRoute user={user}><Chatbot /></ProtectedRoute>} />
+            <Route path="/foodinfo" element={<ProtectedRoute user={user}><FoodInfo /></ProtectedRoute>} />
+            <Route path="*" element={<Navigate to={user ? "/" : "/auth"} replace />} />
+          </Routes>
         </div>
 
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/profile" element={<Profile session={session} />} />
-          <Route path="/specialists" element={<Specialists />} />
-          <Route path="/reminders" element={<Reminders />} />
-          <Route path="/dailysurvey" element={<DailySurvey />} />
-          <Route path="/consultation" element={<Consultation />} />
-          <Route path="/articles" element={<Articles />} />
-          <Route path="/chatbot" element={<Chatbot />} />
-          <Route path="/foodinfo" element={<FoodInfo />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
       </div>
     </BrowserRouter>
   );
