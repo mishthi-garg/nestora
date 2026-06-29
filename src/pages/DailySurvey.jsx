@@ -33,7 +33,7 @@ function DailySurvey() {
     // few days' question ids, fetched from the backend. Empty array is fine for
     // a fresh demo session.
     const todaysQuestions = useMemo(
-        () => getTodaysQuestions({ stage: CURRENT_STAGE, seenRecently: [], targetCount: 7 }),
+        () => getTodaysQuestions({ stage: CURRENT_STAGE, seenRecently: [], targetCount: 8 }),
         []
     );
 

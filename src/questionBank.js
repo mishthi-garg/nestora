@@ -24,100 +24,84 @@
 // escalation, bypassing trend logic — same hard rule as before.
 
 export const QUESTION_BANK = [
-  // ───────────────────────────── Section 1 — Physical Recovery ─────────────────────────────
-  { id: "p001", text: "My body felt comfortable today.", section: "Physical Recovery", dimension: "physical_general", positive: true, required: false, critical: false, stage: "both" },
-  { id: "p002", text: "Physical discomfort affected my day.", section: "Physical Recovery", dimension: "physical_flag", positive: false, required: true, critical: false, stage: "both" },
-  { id: "p003", text: "I had enough physical energy today.", section: "Physical Recovery", dimension: "physical_general", positive: true, required: false, critical: false, stage: "both" },
-  { id: "p004", text: "Moving around felt manageable.", section: "Physical Recovery", dimension: "physical_general", positive: true, required: false, critical: false, stage: "both" },
-  { id: "p005", text: "I felt physically exhausted.", section: "Physical Recovery", dimension: "physical_general", positive: false, required: false, critical: false, stage: "both" },
-  { id: "p006", text: "Recovery felt harder than usual.", section: "Physical Recovery", dimension: "physical_flag", positive: false, required: true, critical: false, stage: "postpartum" },
-  { id: "p007", text: "I felt comfortable during daily activities.", section: "Physical Recovery", dimension: "physical_general", positive: true, required: false, critical: false, stage: "both" },
-  { id: "p008", text: "My body felt rested.", section: "Physical Recovery", dimension: "physical_general", positive: true, required: false, critical: false, stage: "both" },
-  { id: "p009", text: "Physical discomfort made things difficult.", section: "Physical Recovery", dimension: "physical_flag", positive: false, required: false, critical: false, stage: "both" },
-  { id: "p010", text: "I felt physically well overall.", section: "Physical Recovery", dimension: "physical_general", positive: true, required: false, critical: false, stage: "both" },
+  // ═══════════════════════════ PHYSICAL RECOVERY (15) ═══════════════════════════
+  { id: "preg003", text: "Nausea affected my day.", section: "Physical Recovery", dimension: "physical_flag", positive: false, required: true, critical: false, stage: "first_trimester" },
+  { id: "preg011", text: "My appetite felt normal today.", section: "Physical Recovery", dimension: "physical_general", positive: true, required: false, critical: false, stage: "first_trimester" },
+  { id: "preg001", text: "I noticed my baby's movements today.", section: "Physical Recovery", dimension: "physical_flag", positive: true, required: false, critical: false, stage: "second_trimester" },
+  { id: "preg004", text: "I felt physically comfortable during pregnancy today.", section: "Physical Recovery", dimension: "physical_general", positive: true, required: true, critical: false, stage: "second_trimester" },
+  { id: "preg022", text: "I felt physically capable of doing my daily tasks.", section: "Physical Recovery", dimension: "physical_general", positive: true, required: false, critical: false, stage: "second_trimester" },
+  { id: "preg002", text: "Swelling or cramping affected my day.", section: "Physical Recovery", dimension: "physical_flag", positive: false, required: true, critical: false, stage: "third_trimester" },
+  { id: "preg005", text: "Back or joint pain affected my day.", section: "Physical Recovery", dimension: "physical_flag", positive: false, required: false, critical: false, stage: "third_trimester" },
+  { id: "preg014", text: "Heartburn or indigestion affected my day.", section: "Physical Recovery", dimension: "physical_flag", positive: false, required: false, critical: false, stage: "third_trimester" },
+  { id: "preg025", text: "Swelling in my hands or feet felt concerning today.", section: "Physical Recovery", dimension: "physical_flag", positive: false, required: false, critical: false, stage: "third_trimester" },
+  { id: "pp001", text: "Recovery felt harder than usual.", section: "Physical Recovery", dimension: "physical_flag", positive: false, required: false, critical: false, stage: "postpartum" },
+  { id: "pp002", text: "Bleeding or pain felt heavier than expected.", section: "Physical Recovery", dimension: "physical_flag", positive: false, required: false, critical: false, stage: "postpartum" },
+  { id: "pp003", text: "Breastfeeding or feeding the baby felt painful today.", section: "Physical Recovery", dimension: "physical_flag", positive: false, required: true, critical: false, stage: "postpartum" },
+  { id: "pp004", text: "I felt physically healed from delivery.", section: "Physical Recovery", dimension: "physical_general", positive: true, required: true, critical: false, stage: "postpartum" },
+  { id: "pp016", text: "I felt physically exhausted from caring for my baby.", section: "Physical Recovery", dimension: "physical_general", positive: false, required: false, critical: false, stage: "postpartum" },
+  { id: "pp021", text: "I felt physically able to keep up with the baby's needs.", section: "Physical Recovery", dimension: "physical_general", positive: true, required: true, critical: false, stage: "postpartum" },
 
-  // Pregnancy-specific physical items
-  { id: "p011", text: "I noticed my baby's movements today.", section: "Physical Recovery", dimension: "physical_flag", positive: true, required: true, critical: false, stage: "pregnancy" },
-  { id: "p012", text: "Swelling or cramping affected my day.", section: "Physical Recovery", dimension: "physical_flag", positive: false, required: false, critical: false, stage: "pregnancy" },
+  // ═══════════════════════════ MOOD & EMOTIONS (15) ═══════════════════════════
+  { id: "preg024", text: "I felt hopeful about the months ahead.", section: "Mood & Emotions", dimension: "mood", positive: true, required: false, critical: false, stage: "first_trimester" },
+  { id: "preg006", text: "I felt confident about my pregnancy today.", section: "Mood & Emotions", dimension: "mood", positive: true, required: false, critical: false, stage: "second_trimester" },
+  { id: "preg013", text: "I felt connected to my baby today.", section: "Mood & Emotions", dimension: "bonding", positive: true, required: false, critical: false, stage: "second_trimester" },
+  { id: "preg020", text: "I felt at peace with my pregnancy today.", section: "Mood & Emotions", dimension: "mood", positive: true, required: false, critical: false, stage: "second_trimester" },
+  { id: "preg008", text: "I felt excited about meeting my baby.", section: "Mood & Emotions", dimension: "bonding", positive: true, required: false, critical: false, stage: "third_trimester" },
+  { id: "pp006", text: "I felt emotionally connected to my baby today.", section: "Mood & Emotions", dimension: "bonding", positive: true, required: false, critical: false, stage: "postpartum" },
+  { id: "pp007", text: "I felt distant from my baby today.", section: "Mood & Emotions", dimension: "bonding", positive: false, required: false, critical: false, stage: "postpartum" },
+  { id: "pp012", text: "I felt like myself again today.", section: "Mood & Emotions", dimension: "mood", positive: true, required: false, critical: false, stage: "postpartum" },
+  { id: "pp013", text: "I felt unrecognisable to myself since giving birth.", section: "Mood & Emotions", dimension: "mood", positive: false, required: false, critical: false, stage: "postpartum" },
+  { id: "pp015", text: "I cried more than I expected to today.", section: "Mood & Emotions", dimension: "mood", positive: false, required: false, critical: false, stage: "postpartum" },
+  { id: "pp023", text: "I felt happy watching my baby today.", section: "Mood & Emotions", dimension: "bonding", positive: true, required: false, critical: false, stage: "postpartum" },
+  { id: "both001", text: "I was able to enjoy moments today.", section: "Mood & Emotions", dimension: "anhedonia", positive: true, required: false, critical: false, stage: "both" },
+  { id: "both002", text: "I felt emotionally low.", section: "Mood & Emotions", dimension: "mood", positive: false, required: false, critical: false, stage: "both" },
+  { id: "both011", text: "I felt emotionally exhausted.", section: "Mood & Emotions", dimension: "mood", positive: false, required: true, critical: false, stage: "both" },
+  { id: "both012", text: "I felt hopeful today.", section: "Mood & Emotions", dimension: "mood", positive: true, required: false, critical: false, stage: "both" },
 
-  // Postpartum-specific physical item
-  { id: "p013", text: "Bleeding or pain felt heavier than expected.", section: "Physical Recovery", dimension: "physical_flag", positive: false, required: true, critical: false, stage: "postpartum" },
+  // ═══════════════════════════ WORRY & MENTAL LOAD (8) ═══════════════════════════
+  { id: "preg007", text: "I worried about the baby's health today.", section: "Worry & Mental Load", dimension: "anxiety", positive: false, required: false, critical: false, stage: "first_trimester" },
+  { id: "preg009", text: "Thoughts about labour and delivery felt overwhelming.", section: "Worry & Mental Load", dimension: "anxiety", positive: false, required: false, critical: false, stage: "third_trimester" },
+  { id: "preg012", text: "I felt anxious about becoming a mother.", section: "Worry & Mental Load", dimension: "anxiety", positive: false, required: false, critical: false, stage: "third_trimester" },
+  { id: "preg019", text: "I felt scared about giving birth.", section: "Worry & Mental Load", dimension: "anxiety", positive: false, required: false, critical: false, stage: "third_trimester" },
+  { id: "preg023", text: "I worried about my ability to be a good mother.", section: "Worry & Mental Load", dimension: "anxiety", positive: false, required: false, critical: false, stage: "third_trimester" },
+  { id: "pp018", text: "I worried something was wrong with my baby today.", section: "Worry & Mental Load", dimension: "anxiety", positive: false, required: false, critical: false, stage: "postpartum" },
+  { id: "both004", text: "I felt tense or uneasy.", section: "Worry & Mental Load", dimension: "anxiety", positive: false, required: false, critical: false, stage: "both" },
+  { id: "both010", text: "I felt mentally settled.", section: "Worry & Mental Load", dimension: "anxiety", positive: true, required: false, critical: false, stage: "both" },
 
-  // ───────────────────────────── Section 2 — Energy & Rest ─────────────────────────────
-  { id: "e001", text: "I felt rested when I woke up.", section: "Energy & Rest", dimension: "sleep_disruption", positive: true, required: false, critical: false, stage: "both" },
-  { id: "e002", text: "Sleep interruptions affected my day.", section: "Energy & Rest", dimension: "sleep_disruption", positive: false, required: true, critical: false, stage: "both" },
-  { id: "e003", text: "I had enough energy to do what I needed.", section: "Energy & Rest", dimension: "sleep_disruption", positive: true, required: false, critical: false, stage: "both" },
-  { id: "e004", text: "I felt drained today.", section: "Energy & Rest", dimension: "sleep_disruption", positive: false, required: false, critical: false, stage: "both" },
-  { id: "e005", text: "Rest helped me recover.", section: "Energy & Rest", dimension: "sleep_disruption", positive: true, required: false, critical: false, stage: "both" },
-  { id: "e006", text: "I felt mentally refreshed.", section: "Energy & Rest", dimension: "sleep_disruption", positive: true, required: false, critical: false, stage: "both" },
-  { id: "e007", text: "Small tasks felt exhausting.", section: "Energy & Rest", dimension: "coping", positive: false, required: false, critical: false, stage: "both" },
-  { id: "e008", text: "I had moments to rest.", section: "Energy & Rest", dimension: "coping", positive: true, required: false, critical: false, stage: "both" },
-  { id: "e009", text: "I felt more tired than expected.", section: "Energy & Rest", dimension: "sleep_disruption", positive: false, required: false, critical: false, stage: "both" },
-  { id: "e010", text: "My energy stayed stable today.", section: "Energy & Rest", dimension: "sleep_disruption", positive: true, required: false, critical: false, stage: "both" },
+  // ═══════════════════════════ COPING & THOUGHTS (16) ═══════════════════════════
+  { id: "preg015", text: "I felt comfortable with how my body is changing.", section: "Coping & Thoughts", dimension: "coping", positive: true, required: true, critical: false, stage: "second_trimester" },
+  { id: "preg016", text: "I felt insecure about my changing body.", section: "Coping & Thoughts", dimension: "guilt", positive: false, required: false, critical: false, stage: "second_trimester" },
+  { id: "preg010", text: "I felt prepared for the baby's arrival.", section: "Coping & Thoughts", dimension: "coping", positive: true, required: false, critical: false, stage: "third_trimester" },
+  { id: "preg021", text: "I felt overwhelmed by all the decisions to make before the baby arrives.", section: "Coping & Thoughts", dimension: "coping", positive: false, required: false, critical: false, stage: "third_trimester" },
+  { id: "pp008", text: "I felt confident caring for my baby.", section: "Coping & Thoughts", dimension: "coping", positive: true, required: false, critical: false, stage: "postpartum" },
+  { id: "pp009", text: "I felt guilty about not doing enough for my baby.", section: "Coping & Thoughts", dimension: "guilt", positive: false, required: false, critical: false, stage: "postpartum" },
+  { id: "pp017", text: "I felt proud of how I handled today.", section: "Coping & Thoughts", dimension: "coping", positive: true, required: true, critical: false, stage: "postpartum" },
+  { id: "pp020", text: "I felt resentment about how much has changed since the baby arrived.", section: "Coping & Thoughts", dimension: "guilt", positive: false, required: false, critical: false, stage: "postpartum" },
+  { id: "pp022", text: "I felt overwhelmed by the responsibility of caring for my baby.", section: "Coping & Thoughts", dimension: "coping", positive: false, required: false, critical: false, stage: "postpartum" },
+  { id: "pp024", text: "My body felt foreign or unfamiliar to me today.", section: "Coping & Thoughts", dimension: "guilt", positive: false, required: false, critical: false, stage: "postpartum" },
+  { id: "pp025", text: "I felt like I was coping well with this new chapter.", section: "Coping & Thoughts", dimension: "coping", positive: true, required: false, critical: false, stage: "postpartum" },
+  { id: "both005", text: "I felt in control of my day.", section: "Coping & Thoughts", dimension: "coping", positive: true, required: false, critical: false, stage: "both" },
+  { id: "both006", text: "I found it difficult to cope.", section: "Coping & Thoughts", dimension: "coping", positive: false, required: false, critical: false, stage: "both" },
+  { id: "both007", text: "I blamed myself when things went wrong.", section: "Coping & Thoughts", dimension: "guilt", positive: false, required: false, critical: false, stage: "both" },
+  { id: "c011", text: "Things have felt so heavy that I've wished I could just disappear for a while.", section: "Coping & Thoughts", dimension: "self_harm", positive: false, required: false, critical: false, stage: "both" },
+  { id: "c012", text: "Thoughts of hurting myself or my baby have crossed my mind.", section: "Coping & Thoughts", dimension: "self_harm", positive: false, required: false, critical: true, stage: "postpartum" },
 
-  // ───────────────────────────── Section 3 — Mood & Emotions ─────────────────────────────
-  { id: "m001", text: "I was able to enjoy moments today.", section: "Mood & Emotions", dimension: "anhedonia", positive: true, required: true, critical: false, stage: "both" },
-  { id: "m002", text: "I felt emotionally low.", section: "Mood & Emotions", dimension: "mood", positive: false, required: true, critical: false, stage: "both" },
-  { id: "m003", text: "I looked forward to parts of my day.", section: "Mood & Emotions", dimension: "anhedonia", positive: true, required: false, critical: false, stage: "both" },
-  { id: "m004", text: "I felt calm and emotionally balanced.", section: "Mood & Emotions", dimension: "mood", positive: true, required: false, critical: false, stage: "both" },
-  { id: "m005", text: "I felt overwhelmed emotionally.", section: "Mood & Emotions", dimension: "mood", positive: false, required: false, critical: false, stage: "both" },
-  { id: "m006", text: "I felt hopeful today.", section: "Mood & Emotions", dimension: "mood", positive: true, required: false, critical: false, stage: "both" },
-  { id: "m007", text: "I found myself becoming emotional unexpectedly.", section: "Mood & Emotions", dimension: "mood", positive: false, required: false, critical: false, stage: "both" },
-  { id: "m008", text: "I felt emotionally connected to my day.", section: "Mood & Emotions", dimension: "bonding", positive: true, required: false, critical: false, stage: "both" },
-  { id: "m009", text: "I felt emotionally exhausted.", section: "Mood & Emotions", dimension: "mood", positive: false, required: false, critical: false, stage: "both" },
-  { id: "m010", text: "I felt satisfied with how today went.", section: "Mood & Emotions", dimension: "mood", positive: true, required: false, critical: false, stage: "both" },
+  // ═══════════════════════════ ENERGY & REST (4) ═══════════════════════════
+  { id: "preg017", text: "I had trouble sleeping due to physical discomfort.", section: "Energy & Rest", dimension: "sleep_disruption", positive: false, required: true, critical: false, stage: "third_trimester" },
+  { id: "pp005", text: "Sleep deprivation affected my mood today.", section: "Energy & Rest", dimension: "sleep_disruption", positive: false, required: false, critical: false, stage: "postpartum" },
+  { id: "pp014", text: "I felt rested despite the baby's schedule.", section: "Energy & Rest", dimension: "sleep_disruption", positive: true, required: false, critical: false, stage: "postpartum" },
+  { id: "both003", text: "I felt rested when I woke up.", section: "Energy & Rest", dimension: "sleep_disruption", positive: true, required: true, critical: false, stage: "both" },
 
-  // ───────────────────────────── Section 4 — Worry & Mental Load ─────────────────────────────
-  { id: "w001", text: "Worries stayed in my mind today.", section: "Worry & Mental Load", dimension: "anxiety", positive: false, required: false, critical: false, stage: "both" },
-  { id: "w002", text: "I felt relaxed most of the day.", section: "Worry & Mental Load", dimension: "anxiety", positive: true, required: false, critical: false, stage: "both" },
-  { id: "w003", text: "Small concerns felt difficult to let go of.", section: "Worry & Mental Load", dimension: "anxiety", positive: false, required: false, critical: false, stage: "both" },
-  { id: "w004", text: "I felt tense or uneasy.", section: "Worry & Mental Load", dimension: "anxiety", positive: false, required: true, critical: false, stage: "both" },
-  { id: "w005", text: "My thoughts felt manageable.", section: "Worry & Mental Load", dimension: "anxiety", positive: true, required: false, critical: false, stage: "both" },
-  { id: "w006", text: "I worried more than usual.", section: "Worry & Mental Load", dimension: "anxiety", positive: false, required: false, critical: false, stage: "both" },
-  { id: "w007", text: "I felt mentally peaceful.", section: "Worry & Mental Load", dimension: "anxiety", positive: true, required: false, critical: false, stage: "both" },
-  { id: "w008", text: "I found it easy to calm my mind.", section: "Worry & Mental Load", dimension: "anxiety", positive: true, required: false, critical: false, stage: "both" },
-  { id: "w009", text: "Concerns affected my day.", section: "Worry & Mental Load", dimension: "anxiety", positive: false, required: false, critical: false, stage: "both" },
-  { id: "w010", text: "I felt mentally settled.", section: "Worry & Mental Load", dimension: "anxiety", positive: true, required: false, critical: false, stage: "both" },
-
-  // ───────────────────────────── Section 5 — Coping & Thoughts ─────────────────────────────
-  { id: "c001", text: "Today felt manageable.", section: "Coping & Thoughts", dimension: "coping", positive: true, required: false, critical: false, stage: "both" },
-  { id: "c002", text: "I handled challenges well.", section: "Coping & Thoughts", dimension: "coping", positive: true, required: false, critical: false, stage: "both" },
-  { id: "c003", text: "I felt pressure building up.", section: "Coping & Thoughts", dimension: "coping", positive: false, required: false, critical: false, stage: "both" },
-  { id: "c004", text: "I felt in control of my day.", section: "Coping & Thoughts", dimension: "coping", positive: true, required: false, critical: false, stage: "both" },
-  { id: "c005", text: "I found it difficult to cope.", section: "Coping & Thoughts", dimension: "coping", positive: false, required: true, critical: false, stage: "both" },
-  { id: "c006", text: "I blamed myself when things went wrong.", section: "Coping & Thoughts", dimension: "guilt", positive: false, required: false, critical: false, stage: "both" },
-  { id: "c007", text: "My thoughts felt repetitive.", section: "Coping & Thoughts", dimension: "coping", positive: false, required: false, critical: false, stage: "both" },
-  { id: "c008", text: "I felt capable today.", section: "Coping & Thoughts", dimension: "coping", positive: true, required: false, critical: false, stage: "both" },
-  { id: "c009", text: "Things felt harder than usual.", section: "Coping & Thoughts", dimension: "coping", positive: false, required: false, critical: false, stage: "both" },
-  { id: "c010", text: "I felt confident handling today.", section: "Coping & Thoughts", dimension: "coping", positive: true, required: false, critical: false, stage: "both" },
-
-  // Risk-screening pair — internal-only "self_harm" dimension. Without
-  // something like this, no question in the bank can ever trigger the
-  // immediate-escalation rule the rest of the app depends on. Worded gently
-  // and placed in the same section/tone as the surrounding guilt and
-  // overwhelm questions, so it doesn't stand out as a "test" item.
-  //
-  // c011 stays non-critical: its softer wording ("wished I could disappear
-  // for a while") risks false-positive crisis escalations on ordinary
-  // exhaustion/venting. It still feeds the self_harm dimension for trend
-  // detection, it just doesn't hard-trigger on its own.
-  { id: "c011", text: "Things have felt so heavy that I've wished I could just disappear for a while.", section: "Coping & Thoughts", dimension: "self_harm", positive: false, required: true, critical: false, stage: "both" },
-  // c012 carries the hard trigger — its wording is unambiguous enough that a
-  // high-severity answer here should bypass trend logic entirely.
-  { id: "c012", text: "Thoughts of hurting myself or my baby have crossed my mind.", section: "Coping & Thoughts", dimension: "self_harm", positive: false, required: true, critical: true, stage: "both" },
-
-  // ───────────────────────────── Section 6 — Support & Connection ─────────────────────────────
-  { id: "s001", text: "I felt supported today.", section: "Support & Connection", dimension: "coping", positive: true, required: false, critical: false, stage: "both" },
-  { id: "s002", text: "I had someone I could talk to.", section: "Support & Connection", dimension: "coping", positive: true, required: false, critical: false, stage: "both" },
-  { id: "s003", text: "I felt understood.", section: "Support & Connection", dimension: "coping", positive: true, required: false, critical: false, stage: "both" },
-  { id: "s004", text: "I felt alone today.", section: "Support & Connection", dimension: "coping", positive: false, required: true, critical: false, stage: "both" },
-  { id: "s005", text: "Asking for help felt comfortable.", section: "Support & Connection", dimension: "coping", positive: true, required: false, critical: false, stage: "both" },
-  { id: "s006", text: "I felt connected to people around me.", section: "Support & Connection", dimension: "coping", positive: true, required: false, critical: false, stage: "both" },
-  { id: "s007", text: "I had time to care for myself.", section: "Support & Connection", dimension: "coping", positive: true, required: false, critical: false, stage: "both" },
-  { id: "s008", text: "I felt appreciated.", section: "Support & Connection", dimension: "guilt", positive: true, required: false, critical: false, stage: "both" },
-  { id: "s009", text: "I felt emotionally supported.", section: "Support & Connection", dimension: "coping", positive: true, required: false, critical: false, stage: "both" },
-  { id: "s010", text: "I felt comfortable expressing how I felt.", section: "Support & Connection", dimension: "coping", positive: true, required: false, critical: false, stage: "both" },
+  // ═══════════════════════════ SUPPORT & CONNECTION (7) ═══════════════════════════
+  { id: "preg018", text: "I felt supported by people around me during this pregnancy.", section: "Support & Connection", dimension: "coping", positive: true, required: true, critical: false, stage: "first_trimester" },
+  { id: "pp010", text: "I had support from family or friends today.", section: "Support & Connection", dimension: "coping", positive: true, required: false, critical: false, stage: "postpartum" },
+  { id: "pp011", text: "I felt completely alone in caring for my baby today.", section: "Support & Connection", dimension: "coping", positive: false, required: false, critical: false, stage: "postpartum" },
+  { id: "pp019", text: "I felt comfortable asking for help with the baby.", section: "Support & Connection", dimension: "coping", positive: true, required: false, critical: false, stage: "postpartum" },
+  { id: "both008", text: "I felt alone today.", section: "Support & Connection", dimension: "coping", positive: false, required: false, critical: false, stage: "both" },
+  { id: "both009", text: "I felt supported today.", section: "Support & Connection", dimension: "coping", positive: true, required: false, critical: false, stage: "both" },
+  { id: "both013", text: "I felt comfortable expressing how I felt today.", section: "Support & Connection", dimension: "coping", positive: true, required: false, critical: false, stage: "both" },
 ];
+
 
 // ───────────────────────────── SCORING HELPER ─────────────────────────────
 //
@@ -139,24 +123,28 @@ export function toSeverity(question, rawResponse) {
 // pulled across all 6 sections for variety.
 
 export function getTodaysQuestions({ stage, seenRecently = [], targetCount = 8 }) {
+  console.log("target ",targetCount);
   const eligible = QUESTION_BANK.filter((q) => q.stage === "both" || q.stage === stage);
-  
+  console.log("eligible ",eligible.length)
   const required = eligible.filter((q) => q.required);
+  console.log("required ",required.length)
+  console.log(required);
   const optionalPool = eligible.filter((q) => !q.required);
-
+  console.log("optional ",optionalPool.length)
   const fresh = optionalPool.filter((q) => !seenRecently.includes(q.id));
   const pool = fresh.length >= targetCount - required.length ? fresh : optionalPool;
-
+  console.log("pool ",pool.length)
   // Fisher-Yates shuffle
   const shuffled = [...pool];
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
-
+  console.log("required ",required.length)
+  console.log("target ",targetCount);
   const slotsLeft = Math.max(targetCount - required.length, 0);
   const optional = shuffled.slice(0, slotsLeft);
-
+  console.log("slots ",slotsLeft)
   // Shuffle final order too, so required questions (esp. the risk pair)
   // don't always land in the same visual position in the flow.
   const combined = [...required, ...optional];
@@ -164,6 +152,7 @@ export function getTodaysQuestions({ stage, seenRecently = [], targetCount = 8 }
     const j = Math.floor(Math.random() * (i + 1));
     [combined[i], combined[j]] = [combined[j], combined[i]];
   }
+  console.log(combined.length);
   return combined;
 }
 
