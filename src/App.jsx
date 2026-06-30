@@ -83,7 +83,13 @@ function App() {
           <Routes>
             <Route
               path="/auth"
-              element={user ? <Navigate to="/" replace /> : <Auth />}
+              element={user ? <Navigate to="/" replace /> :
+                <Auth
+                  supabase={supabase}
+                  onAuthenticated={(session) => {
+                    setUser(session.user);
+                  }}
+                />}
             />
             <Route path="/" element={<ProtectedRoute user={user}><Dashboard /></ProtectedRoute>} />
             <Route path="/profile" element={<ProtectedRoute user={user}><Profile /></ProtectedRoute>} />
