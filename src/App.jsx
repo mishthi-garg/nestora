@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, NavLink, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, NavLink, Navigate, Link } from "react-router-dom";
 
 import { supabase } from "./supabaseClient";
 import Auth from "./Auth";
@@ -58,16 +58,21 @@ function App() {
             <div className="flex items-center gap-4">
               {/* Profile hover card */}
               <div
-                className="relative"
+                className="relative p-1"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
               ><NavLink to="/profile">Profile</NavLink>
                 {isHovered && (
-                  <div className="absolute flex flex-col gap-2 right-0 top-8 bg-[rgb(238,238,238)] border border-[rgb(75,64,56)] rounded-xl shadow-lg py-2 px-6 min-w-max z-10">
-                    <p className="font-bold">{user.email}</p>
+                  <div className="absolute items-center flex flex-col gap-2 right-0 top-8 bg-yellow-50 border border-[rgb(255,214,166)] rounded-xl shadow-lg py-4 px-6 min-w-max z-10">
+                    <p className="text-[rgb(40,20,9)] font-medium">{user.email}</p>
+                    <Link 
+                    to="/profile"
+                    className="cursor-pointer hover:underline">
+                      View Profile
+                    </Link>
                     <button
                       onClick={() => supabase.auth.signOut()}
-                      className="px-3 py-1 rounded bg-yellow-600 text-white"
+                      className="w-full px-3 py-1 rounded text-white cursor-pointer bg-[rgb(40,20,9)] hover:bg-yellow-700"
                     >
                       Sign Out
                     </button>

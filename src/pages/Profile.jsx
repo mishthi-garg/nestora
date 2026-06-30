@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import BottomDock from "../components/BottomDock";
 
 // ───────────────────────────── Date math helpers ─────────────────────────────
 // Pregnancy week and postpartum day are DERIVED from a single stored date,
@@ -160,6 +161,7 @@ function Profile() {
             label="Specialist gender preference"
             value={profile.genderPreference === "no-preference" ? "No preference" : capitalize(profile.genderPreference)}
           />
+          <BottomDock />
         </div>
       )}
 
@@ -328,7 +330,7 @@ function Profile() {
 
 function ProfileRow({ label, value }) {
   return (
-    <div className="flex items-center justify-between border-b border-gray-100 pb-2">
+    <div className="flex items-center justify-between pb-2">
       <span className="text-sm text-gray-500">{label}</span>
       <span className="text-sm font-medium text-[rgb(40,20,9)] text-right">{value}</span>
     </div>
