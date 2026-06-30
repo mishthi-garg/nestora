@@ -7,14 +7,14 @@ import articleIcon from "../icons/article.png"
 import botIcon from "../icons/bot-icon.png"
 import food from "../icons/food.png"
 
-function Dashboard() {
+function Dashboard({user}) {
     const navigate = useNavigate();
     return (
         <div className="p-6">
             <div className="flex flex-col md:flex-row gap-4">
                 <div className="flex md:w-2/3 w-full flex-col gap-6 justify-end">
                 <div className="flex items-center h-full">
-                    <h2 className="text-4xl text-[rgb(40,20,9)] font-bold">Hello!</h2>
+                    <h2 className="text-4xl text-[rgb(40,20,9)] font-bold">Hello {user.user_metadata.full_name}!</h2>
                 </div>
                     <div className="px-6 rounded-4xl border-2 py-6 border-[rgb(220,0,0)] bg-red-100 flex flex-col sm:flex-row gap-4 items-start justify-between">
                         <div>

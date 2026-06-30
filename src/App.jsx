@@ -96,8 +96,8 @@ function App() {
                   }}
                 />}
             />
-            <Route path="/" element={<ProtectedRoute user={user}><Dashboard /></ProtectedRoute>} />
-            <Route path="/profile" element={<ProtectedRoute user={user}><Profile /></ProtectedRoute>} />
+            <Route path="/" element={<ProtectedRoute user={user}><Dashboard user={user}/></ProtectedRoute>} />
+            <Route path="/profile" element={<ProtectedRoute user={user}><Profile user={user}/></ProtectedRoute>} />
             <Route path="/specialists" element={<ProtectedRoute user={user}><Specialists /></ProtectedRoute>} />
             <Route path="/reminders" element={<ProtectedRoute user={user}><Reminders /></ProtectedRoute>} />
             <Route path="/dailysurvey" element={<ProtectedRoute user={user}><DailySurvey /></ProtectedRoute>} />

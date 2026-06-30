@@ -1,10 +1,17 @@
-import { useState, useMemo } from "react";
-import BottomDock from "../components/BottomDock";
+import { useState, useMemo, useEffect, createContext, useContext } from "react";
+import { supabase } from "../supabaseClient";
+
+function useAuth() {
+  const ctx = useContext(AuthContext);
+  if (ctx === undefined) {
+    throw new Error("useAuth must be used inside an <AuthProvider>");
+  }
+  return ctx;
+}
 
 // ───────────────────────────── Date math helpers ─────────────────────────────
-// Pregnancy week and postpartum day are DERIVED from a single stored date,
-// rather than stored as separate numbers — this avoids the profile silently
-// drifting out of sync with reality every day the user doesn't open the app.
+// (unchanged from before — pregnancy week / postpartum day are still derived,
+// not stored, so the profile never silently drifts out of sync)
 
 function getPregnancyWeek(dueDateStr) {
   if (!dueDateStr) return null;
@@ -13,7 +20,7 @@ function getPregnancyWeek(dueDateStr) {
   const msPerWeek = 7 * 24 * 60 * 60 * 1000;
   const weeksUntilDue = Math.round((due - today) / msPerWeek);
   const week = 40 - weeksUntilDue;
-  return Math.min(Math.max(week, 1), 42); // clamp to a sane range
+  return Math.min(Math.max(week, 1), 42);
 }
 
 function getPostpartumDay(deliveryDateStr) {
@@ -31,31 +38,103 @@ function getTrimester(week) {
   return 3;
 }
 
-// ───────────────────────────── Default profile shape ─────────────────────────────
-// This is the single source of truth other pages should eventually read from
-// (Dashboard's week thread, DailySurvey's stage-based question pool,
-// Articles' stage filter) instead of each hardcoding their own constant.
+// ───────────────────────────── DB <-> app field mapping ─────────────────────────────
+// Supabase/Postgres convention is snake_case columns; the rest of the app
+// (Dashboard, DailySurvey, Articles) expects camelCase. Convert at the boundary
+// so only this file needs to know about the DB's naming.
 
-const DEFAULT_PROFILE = {
+function rowToProfile(row) {
+  return {
+    name: row.name ?? "",
+    stage: row.stage ?? "pregnancy",
+    dueDate: row.due_date ?? "",
+    deliveryDate: row.delivery_date ?? "",
+    isFirstPregnancy: row.is_first_pregnancy ?? true,
+    deliveryType: row.delivery_type ?? "",
+    emergencyContactName: row.emergency_contact_name ?? "",
+    emergencyContactPhone: row.emergency_contact_phone ?? "",
+    languagePreference: row.language_preference ?? "",
+    genderPreference: row.gender_preference ?? "no-preference",
+  };
+}
+
+function profileToRow(profile, userId) {
+  return {
+    id: userId,
+    name: profile.name,
+    stage: profile.stage,
+    due_date: profile.dueDate || null,
+    delivery_date: profile.deliveryDate || null,
+    is_first_pregnancy: profile.isFirstPregnancy,
+    delivery_type: profile.deliveryType,
+    emergency_contact_name: profile.emergencyContactName,
+    emergency_contact_phone: profile.emergencyContactPhone,
+    language_preference: profile.languagePreference,
+    gender_preference: profile.genderPreference,
+    updated_at: new Date().toISOString(),
+  };
+}
+
+const EMPTY_PROFILE = {
   name: "",
-  stage: "pregnancy", // "pregnancy" | "postpartum"
+  stage: "pregnancy",
   dueDate: "",
   deliveryDate: "",
   isFirstPregnancy: true,
-  deliveryType: "", // "vaginal" | "c-section" — only relevant once postpartum
+  deliveryType: "",
   emergencyContactName: "",
   emergencyContactPhone: "",
   languagePreference: "",
-  genderPreference: "no-preference", // for specialist matching
+  genderPreference: "no-preference",
 };
 
-function Profile() {
-  // Swap this useState for a real fetch from Supabase/your backend once
-  // wired up — shape stays identical, only the data source changes.
-  const [profile, setProfile] = useState(DEFAULT_PROFILE);
-  const [draft, setDraft] = useState(DEFAULT_PROFILE);
+function Profile({user}) {
+
+  const [profile, setProfile] = useState(EMPTY_PROFILE);
+  const [draft, setDraft] = useState(EMPTY_PROFILE);
   const [isEditing, setIsEditing] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [loadError, setLoadError] = useState("");
+  const [saveError, setSaveError] = useState("");
+
+  // Fetch this user's profile row on mount / whenever the user changes
+  useEffect(() => {
+    if (!user) return;
+
+    let cancelled = false;
+
+    async function loadProfile() {
+      setLoading(true);
+      setLoadError("");
+
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", user.id)
+        .single();
+
+      if (cancelled) return;
+
+      if (error) {
+        // PGRST116 = no row found yet (e.g. trigger hasn't run) — not fatal
+        if (error.code !== "PGRST116") {
+          setLoadError("Couldn't load your profile. Please refresh.");
+        }
+        setLoading(false);
+        return;
+      }
+
+      setProfile(rowToProfile(data));
+      setLoading(false);
+    }
+
+    loadProfile();
+    return () => {
+      cancelled = true;
+    };
+  }, [user]);
 
   const week = useMemo(
     () => (profile.stage === "pregnancy" ? getPregnancyWeek(profile.dueDate) : null),
@@ -71,13 +150,29 @@ function Profile() {
     setDraft(profile);
     setIsEditing(true);
     setSaved(false);
+    setSaveError("");
   }
 
   function cancelEditing() {
     setIsEditing(false);
   }
 
-  function saveProfile() {
+  async function saveProfile() {
+    setSaving(true);
+    setSaveError("");
+
+    // upsert: inserts if the row somehow doesn't exist yet, updates otherwise
+    const { error } = await supabase
+      .from("profiles")
+      .upsert(profileToRow(draft, user.id));
+
+    setSaving(false);
+
+    if (error) {
+      setSaveError("Couldn't save your changes. Please try again.");
+      return;
+    }
+
     setProfile(draft);
     setIsEditing(false);
     setSaved(true);
@@ -85,6 +180,14 @@ function Profile() {
 
   function updateDraft(field, value) {
     setDraft((prev) => ({ ...prev, [field]: value }));
+  }
+
+  if (loading) {
+    return (
+      <div className="p-4 sm:p-6 max-w-lg mx-auto text-sm text-gray-500 flex items-center justify-center">
+        Loading your profile...
+      </div>
+    );
   }
 
   return (
@@ -104,6 +207,12 @@ function Profile() {
         This shapes your check-ins, articles, and specialist matches
       </p>
 
+      {loadError && (
+        <div className="rounded-lg bg-red-50 border border-red-200 text-red-600 text-sm px-3 py-2 mb-4">
+          {loadError}
+        </div>
+      )}
+
       {saved && !isEditing && (
         <div className="rounded-lg bg-[rgb(245,250,240)] border border-[rgb(122,139,105)] text-[rgb(80,100,65)] text-sm px-3 py-2 mb-4">
           Profile updated
@@ -114,7 +223,7 @@ function Profile() {
       {!isEditing && (
         <div className="rounded-xl border-2 border-yellow-700 bg-[rgb(253,246,237)] p-5 mb-5">
           <p className="font-serif text-xl font-medium text-[rgb(40,20,9)] mb-1">
-            {profile.name || "Your name"}
+            {profile.name || user.user_metadata.full_name}
           </p>
           {profile.stage === "pregnancy" ? (
             <p className="text-sm text-gray-600">
@@ -161,7 +270,6 @@ function Profile() {
             label="Specialist gender preference"
             value={profile.genderPreference === "no-preference" ? "No preference" : capitalize(profile.genderPreference)}
           />
-          <BottomDock />
         </div>
       )}
 
@@ -187,7 +295,7 @@ function Profile() {
                   className={`cursor-pointer flex-1 py-2 rounded-lg text-sm border ${
                     draft.stage === s
                       ? "bg-yellow-700 border-yellow-700 text-white font-medium"
-                  : "bg-yellow-50 border-[rgb(255,214,166)] text-[rgb(40,20,9)] hover:bg-orange-100"
+                      : "bg-yellow-50 border-[rgb(255,214,166)] text-[rgb(40,20,9)] hover:bg-orange-100"
                   }`}
                 >
                   {s === "pregnancy" ? "Pregnancy" : "Postpartum"}
@@ -215,7 +323,7 @@ function Profile() {
                       className={`cursor-pointer flex-1 py-2 rounded-lg text-sm border ${
                         draft.isFirstPregnancy === opt.v
                           ? "bg-yellow-700 border-yellow-700 text-white font-medium"
-                  : "bg-yellow-50 border-[rgb(255,214,166)] text-[rgb(40,20,9)] hover:bg-orange-100"
+                          : "bg-yellow-50 border-[rgb(255,214,166)] text-[rgb(40,20,9)] hover:bg-orange-100"
                       }`}
                     >
                       {opt.l}
@@ -243,7 +351,7 @@ function Profile() {
                       className={`cursor-pointer flex-1 py-2 rounded-lg text-sm border ${
                         draft.deliveryType === opt.v
                           ? "bg-yellow-700 border-yellow-700 text-white font-medium"
-                  : "bg-yellow-50 border-[rgb(255,214,166)] text-[rgb(40,20,9)] hover:bg-orange-100"
+                          : "bg-yellow-50 border-[rgb(255,214,166)] text-[rgb(40,20,9)] hover:bg-orange-100"
                       }`}
                     >
                       {opt.l}
@@ -306,18 +414,26 @@ function Profile() {
             </div>
           </Field>
 
+          {saveError && (
+            <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+              {saveError}
+            </p>
+          )}
+
           <div className="flex gap-2 mt-2">
             <button
               onClick={cancelEditing}
-              className="cursor-pointer flex-1 border border-gray-300 text-gray-500 rounded-lg py-2.5 text-sm hover:bg-gray-50"
+              disabled={saving}
+              className="cursor-pointer flex-1 border border-gray-300 text-gray-500 rounded-lg py-2.5 text-sm hover:bg-gray-50 disabled:opacity-60"
             >
               Cancel
             </button>
             <button
               onClick={saveProfile}
-              className="cursor-pointer flex-1 bg-[rgb(40,20,9)] text-white rounded-lg py-2.5 text-sm font-medium hover:bg-[rgb(60,35,20)]"
+              disabled={saving}
+              className="cursor-pointer flex-1 bg-[rgb(40,20,9)] text-white rounded-lg py-2.5 text-sm font-medium hover:bg-[rgb(60,35,20)] disabled:opacity-60"
             >
-              Save
+              {saving ? "Saving..." : "Save"}
             </button>
           </div>
         </div>
@@ -330,7 +446,7 @@ function Profile() {
 
 function ProfileRow({ label, value }) {
   return (
-    <div className="flex items-center justify-between pb-2">
+    <div className="flex items-center justify-between border-b border-gray-100 pb-2">
       <span className="text-sm text-gray-500">{label}</span>
       <span className="text-sm font-medium text-[rgb(40,20,9)] text-right">{value}</span>
     </div>
