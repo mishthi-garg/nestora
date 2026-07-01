@@ -98,12 +98,12 @@ function App() {
             />
             <Route path="/" element={<ProtectedRoute user={user}><Dashboard user={user}/></ProtectedRoute>} />
             <Route path="/profile" element={<ProtectedRoute user={user}><Profile user={user}/></ProtectedRoute>} />
-            <Route path="/specialists" element={<ProtectedRoute user={user}><Specialists /></ProtectedRoute>} />
+            <Route path="/specialists" element={<ProtectedRoute><Specialists /></ProtectedRoute>} />
             <Route path="/reminders" element={<ProtectedRoute user={user}><Reminders /></ProtectedRoute>} />
-            <Route path="/dailysurvey" element={<ProtectedRoute user={user}><DailySurvey /></ProtectedRoute>} />
+            <Route path="/dailysurvey" element={<ProtectedRoute user={user}><DailySurvey user={user}/></ProtectedRoute>} />
             <Route path="/consultation" element={<ProtectedRoute user={user}><Consultation /></ProtectedRoute>} />
             <Route path="/articles" element={<ProtectedRoute user={user}><Articles /></ProtectedRoute>} />
-            <Route path="/chatbot" element={<ProtectedRoute user={user}><Chatbot /></ProtectedRoute>} />
+            <Route path="/chatbot" element={<ProtectedRoute user={user}><Chatbot user={user}/></ProtectedRoute>} />
             <Route path="/foodinfo" element={<ProtectedRoute user={user}><FoodInfo /></ProtectedRoute>} />
             <Route path="*" element={<Navigate to={user ? "/" : "/auth"} replace />} />
           </Routes>

@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import docIcon from "../icons/doctor-icon.png"
 import reminderIcon from "../icons/reminder-icon.png"
 import surveyIcon from "../icons/survey-icon.png"
@@ -7,15 +8,45 @@ import articleIcon from "../icons/article.png"
 import botIcon from "../icons/bot-icon.png"
 import food from "../icons/food.png"
 
-function Dashboard({user}) {
+import { fetchHistory } from "../lib/fetchHistory";
+import { detectTrend } from "../lib/trendDetection";
+
+function Dashboard({ user }) {
     const navigate = useNavigate();
+
+    // ↓ hooks must be here, inside the function body
+    const [trendResult, setTrendResult] = useState({ flagged: false, reason: null });
+
+    useEffect(() => {
+        if (!user?.id) return;
+        fetchHistory(user.id).then((history) => {
+            setTrendResult(detectTrend(history));
+        });
+    }, [user?.id]);
+
+    const { flagged, reason } = trendResult;
+    
     return (
         <div className="p-6">
             <div className="flex flex-col md:flex-row gap-4">
                 <div className="flex md:w-2/3 w-full flex-col gap-6 justify-end">
-                <div className="flex items-center h-full">
-                    <h2 className="text-4xl text-[rgb(40,20,9)] font-bold">Hello {user.user_metadata.full_name}!</h2>
-                </div>
+                    <div className="flex items-center h-full">
+                        <h2 className="text-4xl text-[rgb(40,20,9)] font-bold">Hello {user.user_metadata.full_name}!</h2>
+                    </div>
+                    {flagged && (
+                        <div className="px-4 rounded-xl border-2 py-5 border-[rgb(193,102,107)] bg-[rgb(255,241,238)] flex gap-4 items-center justify-between mb-4">
+                            <div>
+                                <p className="font-semibold text-[rgb(140,60,65)]">{reason}</p>
+                                <p className="text-sm text-gray-500 mt-1">Your wellness companion is here whenever you're ready.</p>
+                            </div>
+                            <button
+                                onClick={() => navigate('/chatbot')}
+                                className="cursor-pointer shadow-sm rounded-2xl border border-[rgb(193,102,107)] bg-white px-5 py-2 font-medium text-[rgb(140,60,65)] hover:bg-[rgb(255,241,238)] whitespace-nowrap text-sm"
+                            >
+                                Talk now
+                            </button>
+                        </div>
+                    )}
                     <div className="px-6 rounded-4xl border-2 py-6 border-[rgb(220,0,0)] bg-red-100 flex flex-col sm:flex-row gap-4 items-start justify-between">
                         <div>
                             <p className="font-semibold text-[rgb(40,20,9)]">Hey! Kindly complete your daily survey.</p>

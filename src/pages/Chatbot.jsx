@@ -64,7 +64,7 @@ const ESCALATION_CONFIG = {
   },
 };
 
-function Chatbot() {
+function Chatbot({user}) {
   const navigate = useNavigate();
 
   const [messages, setMessages] = useState([
@@ -98,7 +98,10 @@ function Chatbot() {
     const res = await fetch(`${baseUrl}/api/chatbot/message`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messages: conversationHistory }),
+      body: JSON.stringify({
+  messages: conversationHistory,
+  userId: user.id,
+})
     });
 
     if (!res.ok) throw new Error("Chatbot request failed");

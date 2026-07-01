@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getTodaysQuestions, toSeverity, aggregateAnswersByDimension } from "../questionBank";
 import leafIcon from "../icons/leaf.png"
 import BottomDock from "../components/BottomDock";
+import { supabase } from "../supabaseClient";
 // Set this from the user's actual profile once Member 1's profile data is wired in.
 // "pregnancy" or "postpartum" changes which questions are eligible.
 const CURRENT_STAGE = "postpartum";
@@ -26,7 +27,7 @@ const completionMessages = {
   },
 };
 
-function DailySurvey() {
+function DailySurvey({user}) {
     const navigate = useNavigate();
 
     // In a real build, seenRecently would come from stored history of the last
@@ -75,19 +76,26 @@ function DailySurvey() {
     // accumulates, so both features can eventually write to one unified
     // profile. For now this just logs it — wire this to a real
     // POST /api/wellbeing/scores call once the backend/DB exists.
-    function finishSurvey(finalAnswers) {
-        const dimensionScores = aggregateAnswersByDimension(finalAnswers, todaysQuestions);
-        console.log("Today's dimension scores:", dimensionScores);
-        const values = Object.values(finalAnswers);
-        const avgSeverity =
-        values.reduce((sum, value) => sum + value, 0) / values.length;
+    async function finishSurvey(finalAnswers) {
+  const dimensionScores = aggregateAnswersByDimension(finalAnswers, todaysQuestions);
 
-        setOverallSeverity(avgSeverity);
-        // TODO: persist dimensionScores to backend, keyed by date + user id,
-        // once DB integration is ready. Do NOT use localStorage per project
-        // convention — this stays in-memory/log-only until then.
-        setShowComplete(true);
-    }
+  const today = new Date().toISOString().slice(0, 10); // "2026-07-01"
+
+  const rows = Object.entries(dimensionScores).flatMap(([dimension, severities]) =>
+    severities.map((severity) => ({
+      user_id: user.id, // from your auth/profile context
+      date: today,
+      source: "survey",
+      dimension,
+      severity,
+    }))
+  );
+
+  const { error } = await supabase.from("wellbeing_scores").insert(rows);
+  if (error) console.error("Failed to save survey scores:", error);
+
+  setShowComplete(true);
+}
 
     // ───────────────────────────── Escalation screen ─────────────────────────────
     if (showEscalation) {

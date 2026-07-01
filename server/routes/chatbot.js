@@ -20,6 +20,7 @@
 // Chatbot.jsx. Get a free key at https://console.groq.com
 
 import express from "express";
+import { supabase } from "../supabase.js";
 
 const router = express.Router();
 
@@ -83,8 +84,9 @@ Respond with ONLY a single JSON object, no markdown fences, no preamble:
 }`;
 
 router.post("/message", async (req, res) => {
+  console.log("=== CHATBOT ROUTE HIT ===");
   try {
-    const { messages } = req.body;
+    const { messages, userId } = req.body;
 
     if (!Array.isArray(messages) || messages.length === 0) {
       return res.status(400).json({ error: "messages array is required" });
@@ -143,6 +145,36 @@ router.post("/message", async (req, res) => {
     const normalizedScores = Object.fromEntries(
       DIMENSIONS.map((dim) => [dim, typeof parsed.scores?.[dim] === "number" ? parsed.scores[dim] : 0])
     );
+
+    // After normalizedScores is computed, in your route handler:
+const today = new Date().toISOString().slice(0, 10);
+
+const rows = Object.entries(normalizedScores)
+  .filter(([_, severity]) => severity > 0) // don't pollute with 0-signal rows
+  .map(([dimension, severity]) => ({
+    user_id: userId, // from your auth middleware
+    date: today,
+    source: "chatbot",
+    dimension,
+    severity,
+  }));
+console.log("Rows to insert:", rows);
+// if (rows.length > 0) {
+//   await supabase.from("wellbeing_scores").insert(rows);
+// }
+console.log("Normalized scores:", normalizedScores);
+console.log(process.env.SUPABASE_URL);
+if (rows.length > 0) {
+  const { data, error } = await supabase
+    .from("wellbeing_scores")
+    .insert(rows);
+
+  console.log("Insert result:", data);
+
+  if (error) {
+    console.error("Insert error:", error);
+  }
+}
 
     // Keyword backstop — runs independently of the model's own judgment.
     // If either fires, force the corresponding score to 3 and acute to true,
